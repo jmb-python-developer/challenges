@@ -1,0 +1,4 @@
+/vendor/
+/logs/app.log
+.idea
+fever.db

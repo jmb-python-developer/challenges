@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'./../vendor/autoload.php';
+
+use Fever\Infrastructure\UI\Console\ConsumerCommand;
+use Fever\Infrastructure\UI\Console\AcmeProviderJobCommand;
+use Slim\App;
+use Symfony\Component\Console\Application;
+
+// Instantiate the app
+$settings = require __DIR__ . '/../src/Infrastructure/DI/config/settings.php';
+$app = new App($settings);
+
+// Set up dependencies
+$dependencies = require __DIR__ . '/../src/Infrastructure/DI/config/dependencies.php';
+$dependencies($app);
+
+$application = new Application();
+$container = $app->getContainer();
+//$application->add($container->get(ConsumerCommand::class));
+$application->add($container->get(AcmeProviderJobCommand::class));
+
+$application->run();
